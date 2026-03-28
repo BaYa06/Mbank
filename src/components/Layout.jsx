@@ -9,20 +9,17 @@ const Layout = () => {
 	return (
 		<div
 			className="max-w-md mx-auto bg-[#f5f8f7] flex flex-col shadow-xl relative"
-			style={{
-				height: '100dvh',
-				// Push content below the iOS status bar in standalone PWA mode
-				paddingTop: 'env(safe-area-inset-top)',
-			}}
+			style={{ height: '100dvh' }}
 		>
 			{/* Scrollable content area */}
 			<div
 				id="main-scroll"
-				className={`flex-1 overflow-y-auto scroll-touch no-scrollbar ${isFullScreen ? 'pb-6' : ''}`}
+				className="flex-1 overflow-y-auto scroll-touch no-scrollbar"
 				style={{
 					WebkitOverflowScrolling: 'touch',
-					// Leave room for bottom nav + home indicator
-					paddingBottom: isFullScreen ? undefined : 'calc(5rem + env(safe-area-inset-bottom))',
+					paddingBottom: isFullScreen
+						? 'calc(1.5rem + env(safe-area-inset-bottom))'
+						: 'calc(5rem + env(safe-area-inset-bottom))',
 				}}
 			>
 				<div className="px-4">

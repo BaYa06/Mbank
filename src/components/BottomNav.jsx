@@ -9,7 +9,10 @@ const tabs = [
 
 const BottomNav = () => {
 	return (
-		<nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md z-40 bg-white/95 backdrop-blur-md border-t border-slate-100 px-6 py-2 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+		<nav
+			className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md z-40 bg-white/95 backdrop-blur-md border-t border-slate-100 px-6 py-2"
+			style={{ paddingBottom: 'calc(0.5rem + env(safe-area-inset-bottom))' }}
+		>
 			<div className="flex items-center justify-around">
 				{tabs.map(({ to, icon: Icon, label }) => (
 					<NavLink

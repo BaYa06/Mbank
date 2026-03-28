@@ -16,7 +16,10 @@ const Header = () => {
 	const isFullScreen = ['/transactions', '/settings', '/ai-assistant'].includes(location.pathname)
 
 	return (
-		<header className="flex items-center justify-between py-4 px-4 -mx-4 sticky top-0 bg-white/85 backdrop-blur-2xl z-20 flex-shrink-0">
+		<header
+			className="flex items-center justify-between py-4 px-4 -mx-4 sticky z-20 flex-shrink-0 bg-white/85 backdrop-blur-2xl"
+			style={{ top: 0, paddingTop: 'calc(0.5rem + env(safe-area-inset-top))' }}
+		>
 			<div className="flex items-center gap-3">
                 <button 
                     onClick={() => navigate(-1)}
