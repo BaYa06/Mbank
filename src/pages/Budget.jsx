@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Plus, Target, TriangleAlert, Image as ImageIcon, Sparkles, RefreshCw } from 'lucide-react'
+import { Plus, Target, TriangleAlert, Image as ImageIcon, Sparkles, RefreshCw, Wallet, Gift, Users } from 'lucide-react'
 import BottomSheet from '../components/BottomSheet'
 
 const forecast = [
@@ -24,6 +24,10 @@ const Budget = () => {
 	const [selectedWish, setSelectedWish] = useState(null)
 	const [isAutoSaveOn, setIsAutoSaveOn] = useState(true)
 	const [autoSavePercent, setAutoSavePercent] = useState(15)
+	const [roundUp, setRoundUp] = useState(false)
+	const [roundStep, setRoundStep] = useState(100)
+	const [isCashbackOn, setIsCashbackOn] = useState(false)
+	const [isSharedGoal, setIsSharedGoal] = useState(false)
 
 	return (
 		<>
@@ -211,6 +215,88 @@ const Budget = () => {
 				</div>
 			</section>
 
+			{/* Smart Savings Section */}
+			<section className="mb-6">
+				<h2 className="text-sm font-semibold text-slate-500 mb-3 ml-1 uppercase tracking-wider">Умные накопления (Сдача)</h2>
+				<div className="bg-white rounded-2xl border border-[#009C4D]/20 p-4 shadow-sm flex flex-col transition-all duration-300">
+					<div className="flex items-center justify-between gap-2">
+						<div className="flex items-center gap-3 min-w-0 flex-1 pr-2">
+							<div className="w-12 h-12 rounded-full bg-[#009C4D]/10 flex items-center justify-center shrink-0">
+								<Wallet className="w-6 h-6 text-[#009C4D]" />
+							</div>
+							<div className="flex flex-col min-w-0 flex-1">
+								<span className="font-bold text-slate-900 text-lg truncate">Округление трат</span>
+								<span className="text-sm text-slate-500 leading-tight block">Автоматически откладывать остаток</span>
+							</div>
+						</div>
+
+						<button
+							onClick={() => setRoundUp(!roundUp)}
+							className={`w-14 h-8 rounded-full p-1 transition-colors duration-200 ease-in-out flex-shrink-0 ${roundUp ? 'bg-[#009C4D]' : 'bg-slate-200'}`}
+						>
+							<div className={`w-6 h-6 rounded-full bg-white shadow-sm transform transition-transform duration-200 ease-in-out ${roundUp ? 'translate-x-6' : 'translate-x-0'}`} />
+						</button>
+					</div>
+
+					{roundUp && (
+						<div className="mt-4 pt-4 border-t border-slate-100 flex flex-col gap-3 animate-in fade-in slide-in-from-top-2 duration-300">
+							<span className="text-sm font-semibold text-slate-700">Шаг округления:</span>
+							<div className="flex gap-2">
+								{[10, 50, 100].map(step => (
+									<button
+										key={step}
+										onClick={() => setRoundStep(step)}
+										className={`flex-1 py-2.5 rounded-xl text-sm font-bold transition-all active:scale-95 ${roundStep === step
+												? 'bg-[#009C4D] text-white shadow-md shadow-[#009C4D]/20'
+												: 'bg-slate-50 text-slate-600 hover:bg-slate-100 border border-slate-200'
+											}`}
+									>
+										до {step} ⊆
+									</button>
+								))}
+							</div>
+							<div className="bg-[#009C4D]/5 rounded-xl p-3 border border-[#009C4D]/10 mt-1">
+								<p className="text-xs text-slate-600 leading-relaxed font-medium">
+									{roundStep === 10 && 'Например: покупка на 127 сом округляется до 130. Разница (3 сома) автоматически переводится в вашу копилку.'}
+									{roundStep === 50 && 'Например: покупка на 127 сом округляется до 150. Разница (23 сома) автоматически переводится в вашу копилку.'}
+									{roundStep === 100 && 'Например: покупка на 127 сом округляется до 200. Разница (73 сома) автоматически переводится в вашу копилку.'}
+								</p>
+							</div>
+						</div>
+					)}
+				</div>
+
+				<div className="bg-white rounded-2xl border border-[#009C4D]/20 p-4 shadow-sm flex flex-col transition-all duration-300 mt-4">
+					<div className="flex items-center justify-between gap-2">
+						<div className="flex items-center gap-3 min-w-0 flex-1 pr-2">
+							<div className="w-12 h-12 rounded-full bg-[#009C4D]/10 flex items-center justify-center shrink-0">
+								<Gift className="w-6 h-6 text-[#009C4D]" />
+							</div>
+							<div className="flex flex-col min-w-0 flex-1">
+								<span className="font-bold text-slate-900 text-lg truncate">Кэшбэк на цель</span>
+								<span className="text-sm text-slate-500 leading-tight block">Переводить кэшбэк в копилку</span>
+							</div>
+						</div>
+
+						<button
+							onClick={() => setIsCashbackOn(!isCashbackOn)}
+							className={`w-14 h-8 rounded-full p-1 transition-colors duration-200 ease-in-out flex-shrink-0 ${isCashbackOn ? 'bg-[#009C4D]' : 'bg-slate-200'}`}
+						>
+							<div className={`w-6 h-6 rounded-full bg-white shadow-sm transform transition-transform duration-200 ease-in-out ${isCashbackOn ? 'translate-x-6' : 'translate-x-0'}`} />
+						</button>
+					</div>
+					{isCashbackOn && (
+						<div className="mt-4 pt-4 border-t border-slate-100 flex flex-col gap-3 animate-in fade-in slide-in-from-top-2 duration-300">
+							<div className="bg-[#009C4D]/5 rounded-xl p-3 border border-[#009C4D]/10">
+								<p className="text-xs text-slate-600 leading-relaxed font-medium">
+									Весь заработанный за месяц кэшбэк будет автоматически зачисляться на ваш счет «Общий прогресс накоплений», чтобы вы быстрее достигали своих целей.
+								</p>
+							</div>
+						</div>
+					)}
+				</div>
+			</section>
+
 			<BottomSheet 
 				isOpen={isWishSheetOpen} 
 				onClose={() => setIsWishSheetOpen(false)} 
@@ -254,6 +340,21 @@ const Budget = () => {
 							<button className="flex-1 py-2 bg-slate-100 text-slate-600 rounded-lg text-sm font-semibold hover:bg-slate-200">+ 1 000</button>
 							<button className="flex-1 py-2 bg-slate-100 text-slate-600 rounded-lg text-sm font-semibold hover:bg-slate-200">+ 5 000</button>
 							<button className="flex-1 py-2 bg-slate-100 text-slate-600 rounded-lg text-sm font-semibold hover:bg-slate-200">Всё</button>
+						</div>
+					</div>
+
+					<div className="flex items-center gap-3 mt-1 bg-slate-50 p-3 rounded-xl border border-slate-100">
+						<button
+							onClick={() => setIsSharedGoal(!isSharedGoal)}
+							className={`w-12 h-7 rounded-full p-1 transition-colors duration-200 ease-in-out flex-shrink-0 ${isSharedGoal ? 'bg-[#009C4D]' : 'bg-slate-300'}`}
+						>
+							<div className={`w-5 h-5 rounded-full bg-white shadow-sm transform transition-transform duration-200 ease-in-out ${isSharedGoal ? 'translate-x-5' : 'translate-x-0'}`} />
+						</button>
+						<div className="flex flex-col">
+							<span className="text-sm font-bold text-slate-700 flex items-center gap-1.5">
+								<Users className="w-4 h-4 text-[#009C4D]" /> Совместная цель
+							</span>
+							<span className="text-xs text-slate-500 font-medium">Копите вместе по ссылке</span>
 						</div>
 					</div>
 

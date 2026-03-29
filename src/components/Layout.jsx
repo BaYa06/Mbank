@@ -14,7 +14,7 @@ const Layout = () => {
 			{/* Scrollable content area */}
 			<div
 				id="main-scroll"
-				className="flex-1 overflow-y-auto scroll-touch no-scrollbar"
+				className="flex-1 overflow-y-auto scroll-touch no-scrollbar overflow-x-hidden"
 				style={{
 					WebkitOverflowScrolling: 'touch',
 					paddingBottom: isFullScreen
@@ -22,9 +22,9 @@ const Layout = () => {
 						: 'calc(5rem + env(safe-area-inset-bottom))',
 				}}
 			>
-				<div className="px-4">
+				<div className="px-4 w-full">
 					<Header />
-					<main className="space-y-6 pb-6">
+					<main className="space-y-6 pb-6 w-full">
 						<Outlet />
 					</main>
 				</div>

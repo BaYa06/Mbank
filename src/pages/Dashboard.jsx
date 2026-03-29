@@ -11,10 +11,10 @@ const Dashboard = () => {
 	const [isBudgetSheetOpen, setIsBudgetSheetOpen] = useState(false)
 
 	useEffect(() => {
-		const timer = setTimeout(() => {
-			setShowNotification(true)
-		}, 1500)
-		return () => clearTimeout(timer)
+		// const timer = setTimeout(() => {
+		// 	setShowNotification(true)
+		// }, 1500)
+		// return () => clearTimeout(timer)
 	}, [])
 
 	return (

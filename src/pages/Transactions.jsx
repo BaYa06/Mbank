@@ -54,8 +54,8 @@ const Transactions = () => {
 	const [splitCount, setSplitCount] = useState(2)
 
 	return (
-		<div className="flex flex-col min-h-[calc(100vh-140px)]">
-			<div className="flex-1 space-y-4">
+		<div className="flex flex-col pb-28 pt-2 w-full">
+			<div className="flex-1 space-y-4 w-full">
 				<div className="flex items-center gap-3 bg-slate-100 rounded-xl px-4 py-3 mt-2">
 					<Search className="h-5 w-5 text-slate-400" />
 					<input
@@ -100,8 +100,13 @@ const Transactions = () => {
 							<ChevronDown className="h-5 w-5 text-slate-400" />
 						)}
 					</button>
-					{showFilters && (
-						<div className="px-5 pb-4 pt-1 border-t border-slate-100">
+					<div 
+						className={`grid transition-all duration-300 ease-in-out ${
+							showFilters ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+						}`}
+					>
+						<div className="overflow-hidden">
+							<div className="px-5 pb-4 pt-1 border-t border-slate-100">
 							<p className="text-sm text-slate-500 mb-3">Категория</p>
 							<div className="flex flex-wrap gap-2">
 								{categories.map((cat) => (
@@ -119,8 +124,9 @@ const Transactions = () => {
 								))}
 							</div>
 						</div>
-					)}
+					</div>
 				</div>
+			</div>
 
 				<div className="space-y-5">
 					{transactions.map((group) => {
@@ -187,7 +193,10 @@ const Transactions = () => {
 				</div>
 			</div>
 
-			<div className="sticky bottom-0 bg-white border-t border-slate-100 -mx-4 px-4 py-3 mt-6 flex justify-between items-end">
+			<div 
+				className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-white border-t border-slate-200 z-40 px-5 pt-3 flex justify-between items-end shadow-[0_-4px_24px_rgba(0,0,0,0.02)]"
+				style={{ paddingBottom: 'calc(0.75rem + env(safe-area-inset-bottom))' }}
+			>
 				<div>
 					<p className="text-xs text-slate-400">Общий доход</p>
 					<p className="text-lg font-bold text-green-500">

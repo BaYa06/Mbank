@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { AlertCircle, Lightbulb, TrendingUp, Target, Tags, Sparkles, SendHorizontal } from 'lucide-react'
+import { AlertCircle, Lightbulb, TrendingUp, Target, Tags, Sparkles, ArrowUp } from 'lucide-react'
 
 export default function AiAssistant() {
   const [messages, setMessages] = useState('')
@@ -15,9 +15,9 @@ export default function AiAssistant() {
   }, [])
 
   return (
-    <div className="flex flex-col h-[calc(100vh-140px)]">
-      {/* Scrollable Content Area */}
-      <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-6 mb-2">
+    <div className="flex flex-col min-h-[calc(100dvh-100px)] relative">
+      {/* Content Area */}
+      <div className="flex-1 flex flex-col gap-6 pt-2 pb-32">
         
         {/* Recent Insights Section */}
         <section>
@@ -88,20 +88,33 @@ export default function AiAssistant() {
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Input Area (Sticky at bottom) */}
-      <div className="px-4 py-3 bg-white border-t border-slate-100 flex gap-2 w-full pb-safe mb-4">
-        <input 
-          type="text" 
-          value={messages}
-          onChange={(e) => setMessages(e.target.value)}
-          placeholder="Спросите о ваших финансах..." 
-          className="flex-1 bg-slate-100 rounded-xl px-4 py-3 outline-none text-slate-700 placeholder:text-slate-400 focus:bg-slate-50 focus:ring-1 ring-slate-200 transition-all font-medium"
-        />
-        <button 
-          className="w-12 h-[48px] rounded-xl flex items-center justify-center flex-shrink-0 transition-colors bg-[#009C4D] text-white shadow-md active:scale-95"
-        >
-          <SendHorizontal className="w-5 h-5 ml-0.5" />
-        </button>
+      {/* Input Area (Fixed at bottom) */}
+      <div 
+        className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md px-4 pt-3 bg-white border-t border-slate-200 z-50 shadow-[0_-4px_24px_rgba(0,0,0,0.02)]"
+        style={{ 
+          paddingBottom: 'calc(0.75rem + env(safe-area-inset-bottom))'
+        }}
+      >
+        <div className="relative flex items-center w-full bg-slate-100 rounded-3xl p-1.5 transition-all focus-within:ring-2 focus-within:ring-[#009C4D]/30 text-slate-700">
+          <input 
+            type="text" 
+            value={messages}
+            onChange={(e) => setMessages(e.target.value)}
+            placeholder="Спросить ИИ-Ассистента..." 
+            className="flex-1 bg-transparent px-4 py-2.5 outline-none font-medium placeholder:text-slate-500 overflow-hidden"
+          />
+          <button 
+            className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-200 mt-auto ${
+              messages.trim().length > 0 ? 'bg-[#009C4D] text-white shadow-sm active:scale-95 transform' : 'bg-slate-200 text-slate-400 cursor-not-allowed'
+            }`}
+            disabled={!messages.trim()}
+          >
+            <ArrowUp className="w-5 h-5" strokeWidth={messages.trim().length > 0 ? 2.5 : 2} />
+          </button>
+        </div>
+        <p className="mt-2 text-center text-[10px] text-slate-400 w-full font-medium opacity-80">
+          ИИ может допускать ошибки. Проверяйте финансовую информацию.
+        </p>
       </div>
     </div>
   )

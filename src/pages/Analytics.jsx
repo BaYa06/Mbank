@@ -68,7 +68,7 @@ const Analytics = () => {
 	return (
 		<>
 			{/* Period Tabs */}
-			<section className="flex p-1 bg-slate-100 rounded-full">
+			<section className="flex p-1 bg-white border border-slate-100 shadow-sm rounded-full">
 				{[
 					{ key: 'week', label: 'Неделя' },
 					{ key: 'month', label: 'Месяц' },
@@ -86,27 +86,8 @@ const Analytics = () => {
 				))}
 			</section>
 
-			{/* AI Summary */}
-			<section 
-				onClick={() => navigate('/ai-assistant')}
-				className="rounded-2xl p-5 bg-[linear-gradient(135deg,#FFF100_0%,#FABF00_100%)] shadow-md relative overflow-hidden cursor-pointer active:scale-95 transition-transform"
-			>
-				<div className="relative z-10 flex gap-4">
-					<div className="text-3xl">🤖</div>
-					<div>
-						<h3 className="font-bold text-slate-900 mb-1">ИИ-Сводка</h3>
-						<p className="text-sm text-slate-800 leading-relaxed font-medium">
-							В этом месяце вы потратили на 12% меньше, чем в прошлом. Отличный результат!
-						</p>
-					</div>
-				</div>
-				<div className="absolute -right-4 -bottom-4 opacity-10">
-					<span className="material-symbols-outlined text-8xl">smart_toy</span>
-				</div>
-			</section>
-
 			{/* Expenses by Day */}
-			<section>
+			<section className="mt-5">
 				<div className="flex items-end justify-between mb-4">
 					<h2 className="text-lg font-bold flex items-center gap-2">
 						<span className="material-symbols-outlined text-[#009e4f]">bar_chart</span>
@@ -202,6 +183,25 @@ const Analytics = () => {
 							</div>
 						))}
 					</div>
+				</div>
+			</section>
+
+			{/* AI Summary */}
+			<section 
+				onClick={() => navigate('/ai-assistant')}
+				className="rounded-2xl p-5 mt-5 bg-[linear-gradient(135deg,#FFF100_0%,#FABF00_100%)] shadow-md relative overflow-hidden cursor-pointer active:scale-95 transition-transform"
+			>
+				<div className="relative z-10 flex gap-4">
+					<div className="text-3xl">🤖</div>
+					<div>
+						<h3 className="font-bold text-slate-900 mb-1">ИИ-Сводка</h3>
+						<p className="text-sm text-slate-800 leading-relaxed font-medium">
+							В этом месяце вы потратили на 12% меньше, чем в прошлом. Отличный результат!
+						</p>
+					</div>
+				</div>
+				<div className="absolute -right-4 -bottom-4 opacity-10">
+					<span className="material-symbols-outlined text-8xl">smart_toy</span>
 				</div>
 			</section>
 
